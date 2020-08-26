@@ -11,8 +11,8 @@ export class AuthService {
   // BASE_PATH: 'http://localhost:8080'
   USER_NAME_SESSION_ATTRIBUTE_NAME = 'authenticatedUser';
 
-  public username: string;
-  public password: string;
+  public username: string = null;
+  public password: string = null;
 
   constructor(private http: HttpClient) {
 

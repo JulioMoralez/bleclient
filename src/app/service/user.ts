@@ -37,7 +37,12 @@ export class UserService {
   }
 
   getEs(): Observable<User[]> {
+    console.log(2);
     return this.http.get<User[]>(this.url).pipe(tap(x => this.users = x));
+  }
+
+  createOrUpdate(user: User): Observable<User> {
+    return this.http.post<User>(this.url + '/', user);
   }
 }
 

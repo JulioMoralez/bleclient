@@ -6,20 +6,35 @@ import { MainComponent } from './main/main.component';
 import {HTTP_INTERCEPTORS, HttpClientModule} from '@angular/common/http';
 import {FormsModule} from '@angular/forms';
 import { LoginComponent } from './login/login.component';
-import { LogoutComponent } from './logout/logout.component';
 import {HttpInterceptorService} from './httpInterceptor.service';
+import { RegistrationComponent } from './registration/registration.component';
+import { AdminComponent } from './admin/admin.component';
+import { PlaceComponent } from './place/place.component';
+import { HeaderComponent } from './header/header.component';
+import {RouterModule, Routes} from '@angular/router';
+
+const appRoutes: Routes = [
+  { path: '', component: MainComponent},
+  { path: 'place', component: PlaceComponent},
+  { path: 'admin', component: AdminComponent},
+  { path: '**', component: MainComponent },
+];
 
 @NgModule({
   declarations: [
     AppComponent,
     MainComponent,
     LoginComponent,
-    LogoutComponent
+    RegistrationComponent,
+    AdminComponent,
+    PlaceComponent,
+    HeaderComponent
   ],
   imports: [
     BrowserModule,
     HttpClientModule,
     FormsModule,
+    RouterModule.forRoot(appRoutes)
   ],
   providers: [
     {

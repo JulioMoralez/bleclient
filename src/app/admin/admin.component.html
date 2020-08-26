@@ -1,0 +1,20 @@
+<table class="table m-5">
+  <tr>
+    <th>id</th>
+    <th>Имя</th>
+    <th>Роль</th>
+    <th>Статус</th>
+  </tr>
+  <tr *ngFor="let user of users" >
+    <td>{{user.id}} </td>
+    <td>{{user.username}} </td>
+    <td>{{user.role}} </td>
+    <td>{{user.active}} </td>
+<!--    <td>-->
+<!--      <span *ngFor="let role of user.roles">-->
+<!--        <span *ngIf="role.check">{{role.runame}} </span>-->
+<!--      </span>-->
+<!--    </td>-->
+<!--    <a class="btn btn-primary m-1" (click)="openEditForm(user.id)">Редактировать</a>-->
+  </tr>
+</table>

@@ -11,7 +11,7 @@ export class LoginComponent implements OnInit {
 
   username: string;
   password: string;
-  errorMessage = 'Invalid Credentials';
+  errorMessage: string;
   successMessage: string;
   invalidLogin = false;
   loginSuccess = false;
@@ -25,10 +25,13 @@ export class LoginComponent implements OnInit {
     this.authService.authenticationService(this.username, this.password).subscribe((result) => {
       this.invalidLogin = false;
       this.loginSuccess = true;
-      this.successMessage = 'Login Successful.';
+      this.successMessage = 'Успешный вход';
+      this.errorMessage = '';
     }, () => {
       this.invalidLogin = true;
       this.loginSuccess = false;
+      this.successMessage = '';
+      this.errorMessage = 'Вход не удался';
     });
   }
 

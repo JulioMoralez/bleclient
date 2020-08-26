@@ -1,0 +1,14 @@
+<header>
+  <nav  class="navbar navbar-expand-lg navbar-light bg-light">
+    <ul class="navbar-nav mr-auto">
+      <button [ngClass]="this.bstyle0" [disabled]="authService.username===null" type="submit" routerLink="/place">Места</button>
+      <button [ngClass]="this.bstyle0" [disabled]="authService.username===null" type="submit" routerLink="/admin">Пользователи</button>
+    </ul>
+    <ul class="nav navbar-nav navbar-right">
+      <div *ngIf="authService.username">
+        <a class="navbar-text mx-2" routerLink="/user">{{authService.username}}</a>
+      </div>
+        <button [ngClass]="this.bstyle0" [disabled]="authService.username===null" type="submit" routerLink="/" (click)=handleLogout()>Выйти</button>
+    </ul>
+  </nav>
+</header>
