@@ -12,6 +12,7 @@
   "private": true,
   "dependencies": {
     "@angular/animations": "~10.0.11",
+    "@angular/cdk": "^10.2.0",
     "@angular/common": "~10.0.11",
     "@angular/compiler": "~10.0.11",
     "@angular/core": "~10.0.11",
@@ -21,6 +22,7 @@
     "@angular/router": "~10.0.11",
     "bcrypt": "^5.0.0",
     "bcryptjs": "^2.4.3",
+    "lodash.chunk": "^4.2.0",
     "rxjs": "~6.5.5",
     "tslib": "^2.0.0",
     "zone.js": "~0.10.3"

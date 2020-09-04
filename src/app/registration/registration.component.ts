@@ -29,7 +29,7 @@ export class RegistrationComponent implements OnInit {
         return;
       }
       if (this.password.length < 3) {
-        this.errorMessage = 'Пароль меньше трех символов';
+        this.errorMessage = 'Пароль менее трех символов';
         return;
       }
       if (this.password.trim() !== this.confirmPassword.trim()) {

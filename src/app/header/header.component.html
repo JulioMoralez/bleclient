@@ -1,8 +1,11 @@
 <header>
   <nav  class="navbar navbar-expand-lg navbar-light bg-light">
     <ul class="navbar-nav mr-auto">
-      <button [ngClass]="this.bstyle0" [disabled]="authService.username===null" type="submit" routerLink="/place">Места</button>
-      <button [ngClass]="this.bstyle0" [disabled]="authService.username===null" type="submit" routerLink="/admin">Пользователи</button>
+<!--      <button [ngClass]="this.bstyle0" [disabled]="authService.username===null" type="submit" routerLink="/place">Места</button>-->
+<!--      <button [ngClass]="this.bstyle0" [disabled]="authService.username===null || authService.authUser.role!=='ADMIN'" type="submit" routerLink="/admin">Пользователи</button>-->
+      <button [ngClass]="this.bstyle0" type="submit" routerLink="/place">Места</button>
+      <button [ngClass]="this.bstyle0" type="submit" routerLink="/journal">Журнал</button>
+      <button [ngClass]="this.bstyle0" type="submit" routerLink="/admin">Пользователи</button>
     </ul>
     <ul class="nav navbar-nav navbar-right">
       <div *ngIf="authService.username">

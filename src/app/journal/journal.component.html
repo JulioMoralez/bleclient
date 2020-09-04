@@ -1,0 +1,20 @@
+<table class="table m-5">
+  <tr>
+    <th>id</th>
+    <th>Время</th>
+    <th>Mac</th>
+    <th>dB</th>
+    <th>UUID</th>
+    <th>Помещение</th>
+    <th>Устройство</th>
+  </tr>
+  <tr *ngFor="let journal of baseService.journals" >
+    <td>{{journal.id}} </td>
+    <td>{{journal.dateTime  | date:'medium'}} </td>
+    <td>{{journal.beaconMac}} </td>
+    <td>{{journal.dB}} </td>
+    <td>{{journal.uUID}} </td>
+    <td>{{journal.placeName}} </td>
+    <td>{{journal.deviceName}} </td>
+  </tr>
+</table>

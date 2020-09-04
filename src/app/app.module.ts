@@ -12,11 +12,18 @@ import { AdminComponent } from './admin/admin.component';
 import { PlaceComponent } from './place/place.component';
 import { HeaderComponent } from './header/header.component';
 import {RouterModule, Routes} from '@angular/router';
+import { ScrollingModule } from '@angular/cdk/scrolling';
+import {BeaconPipe} from './service/beacon-pipe';
+import {PlacePipe} from './service/place-pipe';
+import {DevicePipe} from './service/device-pipe';
+import { JournalComponent } from './journal/journal.component';
+
 
 const appRoutes: Routes = [
   { path: '', component: MainComponent},
   { path: 'place', component: PlaceComponent},
   { path: 'admin', component: AdminComponent},
+  { path: 'journal', component: JournalComponent},
   { path: '**', component: MainComponent },
 ];
 
@@ -28,13 +35,18 @@ const appRoutes: Routes = [
     RegistrationComponent,
     AdminComponent,
     PlaceComponent,
-    HeaderComponent
+    HeaderComponent,
+    BeaconPipe,
+    PlacePipe,
+    DevicePipe,
+    JournalComponent
   ],
   imports: [
     BrowserModule,
     HttpClientModule,
     FormsModule,
-    RouterModule.forRoot(appRoutes)
+    RouterModule.forRoot(appRoutes),
+    ScrollingModule
   ],
   providers: [
     {

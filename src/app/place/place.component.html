@@ -1,10 +1,222 @@
-<table class="table m-5">
+<table class="mx-2">
   <tr>
-    <th>id</th>
-    <th>Название</th>
-  </tr>
-  <tr *ngFor="let place of places" >
-    <td>{{place.id}} </td>
-    <td>{{place.name}} </td>
+    <td valign="top">
+
+      <div id="accordion1">
+        <div class="card">
+          <div class="card-header" id="headingPlace1">
+            <h4 class="mb-0">
+              <button class="btn btn-link collapsed" data-toggle="collapse" data-target="#collapsePlace1" aria-expanded="false" aria-controls="collapsePlace1">
+                <span *ngIf="selectedPlaceId!==null">{{baseService.placeMap.get(selectedPlaceId).name}}</span>
+                <span *ngIf="selectedPlaceId===null">Добавить помещение</span>
+              </button>
+            </h4>
+          </div>
+          <div id="collapsePlace1" class="collapse" aria-labelledby="headingPlace1" data-parent="#accordion1">
+            <div class="card-body">
+              <div class="form-row">
+                <div class="col-sd-7 mb-3">
+                  <label>
+                    <input type="text" class="form-control" placeholder="помещение" [(ngModel)]="updatedName">
+                  </label>
+                </div>
+                <div class="col-sd-2 mb-3">
+                  <button type="button" class="btn btn-primary mx-2" (click)="updatePlace(selectedPlaceId)">Изменить</button>
+                </div>
+                <div class="col-sd-2 mb-3">
+                  <button type="button" class="btn btn-primary mx-2" (click)="updatePlace(-1)">Добавить</button>
+                </div>
+                <div class="col-sd-2 mb-3">
+                  <button type="button" class="btn btn-primary mx-2" (click)="deletePlace(selectedPlaceId)">Удалить</button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="card">
+          <div class="card-header" id="headingPlace2">
+            <h4 class="mb-0">
+              <button class="btn btn-link collapsed" data-toggle="collapse" data-target="#collapsePlace2" aria-expanded="false" aria-controls="collapsePlace2">
+                Фильтры
+              </button>
+            </h4>
+          </div>
+          <div id="collapsePlace2" class="collapse" aria-labelledby="headingPlace2" data-parent="#accordion1">
+            <div class="card-body">
+              <div class="form-row mx-2 my-2">
+                <div class="col-sd-6">
+                  <label>
+                    <input class="form-control" type="text" placeholder="Название" [(ngModel)]="searchPlaceName"/>
+                  </label>
+                </div>
+                <div class="form-check my-2">
+                  <input type="checkbox" class="form-check-input" id="searchPlaceEmpty" [(ngModel)]="searchPlaceEmpty">
+                  <label class="form-check-label" for="searchPlaceEmpty">Не пустые</label>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <cdk-virtual-scroll-viewport itemSize="50" class="example-viewport">
+        <ul class="list-group" *cdkVirtualFor="let place of baseService.places | placePipe:searchPlaceName:searchPlaceEmpty; index as i">
+          <li [ngClass]="((selectedPlaceId !== null) && (place.id === selectedPlaceId)) ? listStyleActive : listStyle">
+      <span>{{i+1}}.
+    <button type="button" class="btn btn-primary mx-2" style="width: 280px" (click)="selectPlace(place.id)">{{place.name}}</button></span>
+            <span class="badge badge-success badge-pill">{{place.beaconsCount}}</span>
+          </li>
+        </ul>
+      </cdk-virtual-scroll-viewport>
+    </td>
+    <td valign="top">
+
+
+      <div  id="accordion2">
+        <div class="card">
+          <div class="card-header" id="headingBeacon1">
+            <h4 class="mb-0">
+              <button class="btn btn-link collapsed" data-toggle="collapse" data-target="#collapseBeacon1" aria-expanded="false" aria-controls="collapseBeacon1">
+                <span *ngIf="selectedBeaconId!==null">{{baseService.beaconMap.get(selectedBeaconId).mac}}</span>
+                <span *ngIf="selectedBeaconId===null">Добавить метку</span>
+              </button>
+            </h4>
+          </div>
+          <div id="collapseBeacon1" class="collapse" aria-labelledby="headingBeacon1" data-parent="#accordion2">
+            <div class="card-body">
+              <div class="form-row">
+                <div class="col-sd-7 mb-3">
+                  <label>
+                    <input type="text" class="form-control" placeholder="помещение" [(ngModel)]="updatedName">
+                  </label>
+                </div>
+                <div class="col-sd-2 mb-3">
+                  <button type="button" class="btn btn-primary mx-2" (click)="updatePlace(selectedPlaceId)">Изменить</button>
+                </div>
+                <div class="col-sd-2 mb-3">
+                  <button type="button" class="btn btn-primary mx-2" (click)="updatePlace(-1)">Добавить</button>
+                </div>
+                <div class="col-sd-2 mb-3">
+                  <button type="button" class="btn btn-primary mx-2" (click)="deletePlace(selectedPlaceId)">Удалить</button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="card">
+          <div class="card-header" id="headingBaecon2">
+            <h4 class="mb-0">
+              <button class="btn btn-link collapsed" data-toggle="collapse" data-target="#collapseBaecon2" aria-expanded="false" aria-controls="collapseBaecon2">
+                Фильтры
+              </button>
+            </h4>
+          </div>
+          <div id="collapseBaecon2" class="collapse" aria-labelledby="headingBaecon2" data-parent="#accordion2">
+            <div class="card-body">
+              <div class="form-row m-2">
+                <div class="col-md-6 mb-3">
+                  <label>
+                    <input class="form-control" type="text" placeholder="Mac" [(ngModel)]="searchMac"/>
+                  </label>
+                </div>
+                <div class="col-md-6 mb-3">
+                  <label>
+                    <input class="form-control" type="text" placeholder="Название" [(ngModel)]="searchDeviceName"/>
+                  </label>
+                </div>
+              </div>
+            </div>
+            </div>
+          </div>
+        </div>
+
+
+
+      <cdk-virtual-scroll-viewport itemSize="50" class="example-viewport">
+        <ul class="list-group" *cdkVirtualFor="let beacon of baseService.beacons | beaconPipe:searchMac:selectedPlaceId ; index as i">
+          <li class="list-group-item">
+      <span>{{i+1}}.
+    <button type="button" class="btn btn-primary mx-2" style="width: 200px" (click)="selectBeacon(beacon.id)">{{findDeviceName(beacon.deviceId)}}</button></span>
+            <span>{{beacon.mac}}</span>
+          </li>
+        </ul>
+      </cdk-virtual-scroll-viewport>
+    </td>
+    <td *ngIf="selectedBeaconId!==null" valign="top">
+      Mac-адрес {{baseService.beaconMap.get(selectedBeaconId).mac}}
+<!--      <button type="button" class="btn btn-primary mx-2" (click)="enableDevice(-1)">Привязать устройство</button>-->
+      <button type="button" class="btn btn-primary mx-2" (click)="disableDevice(selectedBeaconId)">Отвязать устройство</button>
+    </td>
+
+
+    <td valign="top">
+      <div id="accordion3">
+        <div class="card">
+          <div class="card-header" id="headingDevice1">
+            <h4 class="mb-0">
+              <button class="btn btn-link collapsed" data-toggle="collapse" data-target="#collapseDevice1" aria-expanded="false" aria-controls="collapseDevice1">
+                <span *ngIf="selectedDeviceId!==null">{{baseService.deviceMap.get(selectedDeviceId).name}}</span>
+                <span *ngIf="selectedDeviceId===null">Добавить устройство</span>
+              </button>
+            </h4>
+          </div>
+          <div id="collapseDevice1" class="collapse" aria-labelledby="headingDevice1" data-parent="#accordion3">
+            <div class="card-body">
+              <div class="form-row">
+                <div class="col-sd-7 mb-3">
+                  <label>
+                    <input type="text" class="form-control" placeholder="помещение" [(ngModel)]="updatedName">
+                  </label>
+                </div>
+                <div class="col-sd-2 mb-3">
+                  <button type="button" class="btn btn-primary mx-2" (click)="updatePlace(selectedPlaceId)">Изменить</button>
+                </div>
+                <div class="col-sd-2 mb-3">
+                  <button type="button" class="btn btn-primary mx-2" (click)="updatePlace(-1)">Добавить</button>
+                </div>
+                <div class="col-sd-2 mb-3">
+                  <button type="button" class="btn btn-primary mx-2"  (click)="deletePlace(selectedPlaceId)">Удалить</button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="card">
+          <div class="card-header" id="headingDevice2">
+            <h4 class="mb-0">
+              <button class="btn btn-link collapsed" data-toggle="collapse" data-target="#collapseDevice2" aria-expanded="false" aria-controls="collapseDevice2">
+                Фильтры
+              </button>
+            </h4>
+          </div>
+          <div id="collapseDevice2" class="collapse" aria-labelledby="headingDevice2" data-parent="#accordion3">
+            <div class="card-body">
+              <div class="form-row mx-2 my-2">
+                <div class="col-sd-6">
+                  <label>
+                    <input class="form-control" type="text" placeholder="Название" [(ngModel)]="searchDeviceName"/>
+                  </label>
+                  <div class="form-check my-2">
+                    <input type="checkbox" class="form-check-input" id="searchDeviceEmpty" [(ngModel)]="searchDeviceEmpty">
+                    <label class="form-check-label" for="searchDeviceEmpty">Свободные</label>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <cdk-virtual-scroll-viewport itemSize="50" class="example-viewport">
+        <ul class="list-group" *cdkVirtualFor="let device of baseService.devices | devicePipe:searchDeviceName:searchDeviceEmpty:baseService.beacons; index as i">
+          <li class="list-group-item">
+      <span>{{i+1}}.
+    <button type="button" class="btn btn-primary mx-2" style="width: 200px" (click)="selectPlace(device.id)">{{device.name}}</button></span>
+
+          </li>
+        </ul>
+      </cdk-virtual-scroll-viewport>
+    </td>
   </tr>
 </table>

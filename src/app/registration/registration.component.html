@@ -8,35 +8,45 @@
       </h2>
     </div>
     <div id="collapseThree" class="collapse" aria-labelledby="headingThree" data-parent="#accordionExample">
-      <form   style="width: 50%; margin: 0 auto;">
+      <form   style="width: 100%; margin: 0 auto;">
         <div class="text my-3">
-          <h3>Форма регистрации</h3>
+          <h3 align="center">Форма регистрации</h3>
         </div>
         <div class="form-row mt-1">
-          <label for="username" class="col-sm-2 col-form-label col-form-label-sm">Логин</label>
+          <div class="col-md-3 mb-3"></div>
+          <label for="username" class="col-md-2 col-form-label col-form-label-sm">Логин</label>
           <div class="col-md-4 mb-3">
             <input type="text" class="form-control" id="username" [(ngModel)]="username"  name="username" placeholder="логин" required>
           </div>
         </div>
         <div class="form-row">
-          <label for="password" class="col-sm-2 col-form-label col-form-label-sm">Пароль</label>
+          <div class="col-md-3 mb-3"></div>
+          <label for="password" class="col-md-2 col-form-label col-form-label-sm">Пароль</label>
           <div class="col-md-4 mb-3">
             <input  type="password" class="form-control" id="password" [(ngModel)]="password"  name="password" placeholder="пароль" required>
           </div>
         </div>
         <div class="form-row">
-          <label for="comfirmPassword" class="col-sm-2 col-form-label col-form-label-sm">Подтверждение</label>
+          <div class="col-md-3 mb-3"></div>
+          <label for="comfirmPassword" class="col-md-2 col-form-label col-form-label-sm">Подтверждение</label>
           <div class="col-md-4 mb-3">
             <input type="password" class="form-control" id="comfirmPassword" [(ngModel)]="confirmPassword"  name="confirmPassword" placeholder="подтверждение пароля" required>
           </div>
         </div>
-        <button class="btn btn-primary my-2 col-sm-6" type="submit" (click)="register()">Регистрация</button>
 
-        <div *ngIf="errorMessage" class="alert alert-danger my-1 col-sm-6  " role="alert">
-          {{errorMessage}}
+        <div align="center">*пароль не менее трёх символов</div>
+        <div class="form-row">
+          <div class="col-md-3 mb-3"></div>
+          <button class="btn btn-primary my-2 col-sm-6" type="submit" (click)="register()">Регистрация</button>
         </div>
-        <div *ngIf="confirmReg" class="alert alert-success my-1 col-sm-6" role="alert">
-          {{confirmReg}}
+        <div class="form-row">
+          <div class="col-md-3 mb-3"></div>
+          <div *ngIf="errorMessage" class="alert alert-danger my-1 col-md-6 " role="alert">
+            {{errorMessage}}
+          </div>
+          <div *ngIf="confirmReg" class="alert alert-success my-1 col-md-6"  role="alert">
+            {{confirmReg}}
+          </div>
         </div>
       </form>
     </div>
