@@ -6,6 +6,7 @@
       <button [ngClass]="this.bstyle0" type="submit" routerLink="/place">Места</button>
       <button [ngClass]="this.bstyle0" type="submit" routerLink="/journal">Журнал</button>
       <button [ngClass]="this.bstyle0" type="submit" routerLink="/admin">Пользователи</button>
+      <app-oper></app-oper>
     </ul>
     <ul class="nav navbar-nav navbar-right">
       <div *ngIf="authService.username">

@@ -41,4 +41,17 @@ export class BeaconService {
   delete(id: number): Observable<Beacon> {
     return this.http.delete<Beacon>(this.url + '/' + id);
   }
+
+  cloneBeacon(id: number): Beacon {
+    if (id !== -1) {
+      const findedBeacon = this.beacons.find(value => value.id === id);
+      if (findedBeacon !== null) {
+        return new Beacon(findedBeacon.id, findedBeacon.mac, findedBeacon.deviceId, findedBeacon.placeId);
+      } else {
+        return new Beacon(-1, null, null, null);
+      }
+    } else {
+      return new Beacon(-1, null, null, null);
+    }
+  }
 }

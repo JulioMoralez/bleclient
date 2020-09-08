@@ -17,17 +17,17 @@
               <div class="form-row">
                 <div class="col-sd-7 mb-3">
                   <label>
-                    <input type="text" class="form-control" placeholder="помещение" [(ngModel)]="updatedName">
+                    <input type="text" class="form-control" placeholder="помещение" [(ngModel)]="updatedNamePlace">
                   </label>
                 </div>
                 <div class="col-sd-2 mb-3">
-                  <button type="button" class="btn btn-primary mx-2" (click)="updatePlace(selectedPlaceId)">Изменить</button>
+                  <button type="button" [ngClass]="buttonStylePrimary" (click)="updatePlace(selectedPlaceId)">Изменить</button>
                 </div>
                 <div class="col-sd-2 mb-3">
-                  <button type="button" class="btn btn-primary mx-2" (click)="updatePlace(-1)">Добавить</button>
+                  <button type="button" [ngClass]="buttonStylePrimary" (click)="updatePlace(-1)">Добавить</button>
                 </div>
                 <div class="col-sd-2 mb-3">
-                  <button type="button" class="btn btn-primary mx-2" (click)="deletePlace(selectedPlaceId)">Удалить</button>
+                  <button type="button" [ngClass]="buttonStylePrimary" (click)="deletePlace(selectedPlaceId)">Удалить</button>
                 </div>
               </div>
             </div>
@@ -63,7 +63,7 @@
         <ul class="list-group" *cdkVirtualFor="let place of baseService.places | placePipe:searchPlaceName:searchPlaceEmpty; index as i">
           <li [ngClass]="((selectedPlaceId !== null) && (place.id === selectedPlaceId)) ? listStyleActive : listStyle">
       <span>{{i+1}}.
-    <button type="button" class="btn btn-primary mx-2" style="width: 280px" (click)="selectPlace(place.id)">{{place.name}}</button></span>
+    <button type="button" [ngClass]="connectingPlace?buttonStyleWarning:buttonStylePrimary" style="width: 280px" (click)="selectPlace(place.id)">{{place.name}}</button></span>
             <span class="badge badge-success badge-pill">{{place.beaconsCount}}</span>
           </li>
         </ul>
@@ -87,17 +87,35 @@
               <div class="form-row">
                 <div class="col-sd-7 mb-3">
                   <label>
-                    <input type="text" class="form-control" placeholder="помещение" [(ngModel)]="updatedName">
+                    <input type="text" class="form-control" placeholder="метка" [(ngModel)]="updatedNameBeacon">
                   </label>
                 </div>
                 <div class="col-sd-2 mb-3">
-                  <button type="button" class="btn btn-primary mx-2" (click)="updatePlace(selectedPlaceId)">Изменить</button>
+                  <button type="button" [ngClass]="buttonStylePrimary" (click)="updateBeacon(selectedBeaconId)">Изменить</button>
                 </div>
                 <div class="col-sd-2 mb-3">
-                  <button type="button" class="btn btn-primary mx-2" (click)="updatePlace(-1)">Добавить</button>
+                  <button type="button" [ngClass]="buttonStylePrimary" (click)="updateBeacon(-1)">Добавить</button>
                 </div>
                 <div class="col-sd-2 mb-3">
-                  <button type="button" class="btn btn-primary mx-2" (click)="deletePlace(selectedPlaceId)">Удалить</button>
+                  <button type="button" [ngClass]="buttonStylePrimary" (click)="deleteBeacon(selectedBeaconId)">Удалить</button>
+                </div>
+              </div>
+              <div class="form-row">
+                <div class="col-sd-2 mb-3">
+                  <button type="button" [ngClass]="connectingPlace?buttonStyleWarning:buttonStylePrimary"  (click)="connectPlace()">Помещение</button>
+                </div>
+                {{baseService.placeMap.get(connectedPlace)!==undefined?baseService.placeMap.get(connectedPlace).name:null}}
+                <div class="col-sd-2 mb-3">
+                  <button type="button" [ngClass]="buttonStylePrimary" (click)="deleteConnectedPlace()">X</button>
+                </div>
+              </div>
+              <div class="form-row">
+                <div class="col-sd-2 mb-3">
+                  <button type="button" [ngClass]="connectingDevice?buttonStyleWarning:buttonStylePrimary"  (click)="connectDevice()">Устройство</button>
+                </div>
+                {{baseService.deviceMap.get(connectedDevice)!==undefined?baseService.deviceMap.get(connectedDevice).name:null}}
+                <div class="col-sd-2 mb-3">
+                  <button type="button" [ngClass]="buttonStylePrimary" (click)="deleteConnectedDevice()">X</button>
                 </div>
               </div>
             </div>
@@ -122,8 +140,12 @@
                 </div>
                 <div class="col-md-6 mb-3">
                   <label>
-                    <input class="form-control" type="text" placeholder="Название" [(ngModel)]="searchDeviceName"/>
+                    <input class="form-control" type="text" placeholder="Название" [(ngModel)]="searchDeviceNameForBeacon"/>
                   </label>
+                </div>
+                <div class="form-check my-2">
+                  <input type="checkbox" class="form-check-input" id="searchBeaconEmpty" [(ngModel)]="searchBeaconEmpty">
+                  <label class="form-check-label" for="searchBeaconEmpty">Свободные</label>
                 </div>
               </div>
             </div>
@@ -134,19 +156,14 @@
 
 
       <cdk-virtual-scroll-viewport itemSize="50" class="example-viewport">
-        <ul class="list-group" *cdkVirtualFor="let beacon of baseService.beacons | beaconPipe:searchMac:selectedPlaceId ; index as i">
-          <li class="list-group-item">
+        <ul class="list-group" *cdkVirtualFor="let beacon of baseService.beacons | beaconPipe:searchMac:selectedPlaceId:searchBeaconEmpty:baseService:searchDeviceNameForBeacon ; index as i">
+          <li [ngClass]="((selectedBeaconId !== null) && (beacon.id === selectedBeaconId)) ? listStyleActive : listStyle">
       <span>{{i+1}}.
-    <button type="button" class="btn btn-primary mx-2" style="width: 200px" (click)="selectBeacon(beacon.id)">{{findDeviceName(beacon.deviceId)}}</button></span>
-            <span>{{beacon.mac}}</span>
+    <button type="button" [ngClass]="buttonStylePrimary" style="width: 200px" (click)="selectBeacon(beacon.id)">{{beacon.mac}}</button></span>
+            <span>{{findDeviceName(beacon, beacon.id)}}</span>
           </li>
         </ul>
       </cdk-virtual-scroll-viewport>
-    </td>
-    <td *ngIf="selectedBeaconId!==null" valign="top">
-      Mac-адрес {{baseService.beaconMap.get(selectedBeaconId).mac}}
-<!--      <button type="button" class="btn btn-primary mx-2" (click)="enableDevice(-1)">Привязать устройство</button>-->
-      <button type="button" class="btn btn-primary mx-2" (click)="disableDevice(selectedBeaconId)">Отвязать устройство</button>
     </td>
 
 
@@ -166,17 +183,17 @@
               <div class="form-row">
                 <div class="col-sd-7 mb-3">
                   <label>
-                    <input type="text" class="form-control" placeholder="помещение" [(ngModel)]="updatedName">
+                    <input type="text" class="form-control" placeholder="помещение" [(ngModel)]="updatedNameDevice">
                   </label>
                 </div>
                 <div class="col-sd-2 mb-3">
-                  <button type="button" class="btn btn-primary mx-2" (click)="updatePlace(selectedPlaceId)">Изменить</button>
+                  <button type="button" [ngClass]="buttonStylePrimary" (click)="updateDevice(selectedDeviceId)">Изменить</button>
                 </div>
                 <div class="col-sd-2 mb-3">
-                  <button type="button" class="btn btn-primary mx-2" (click)="updatePlace(-1)">Добавить</button>
+                  <button type="button" [ngClass]="buttonStylePrimary" (click)="updateDevice(-1)">Добавить</button>
                 </div>
                 <div class="col-sd-2 mb-3">
-                  <button type="button" class="btn btn-primary mx-2"  (click)="deletePlace(selectedPlaceId)">Удалить</button>
+                  <button type="button" [ngClass]="buttonStylePrimary"  (click)="deleteDevice(selectedDeviceId)">Удалить</button>
                 </div>
               </div>
             </div>
@@ -210,9 +227,9 @@
 
       <cdk-virtual-scroll-viewport itemSize="50" class="example-viewport">
         <ul class="list-group" *cdkVirtualFor="let device of baseService.devices | devicePipe:searchDeviceName:searchDeviceEmpty:baseService.beacons; index as i">
-          <li class="list-group-item">
+          <li [ngClass]="((selectedDeviceId !== null) && (device.id === selectedDeviceId)) ? listStyleActive : listStyle">
       <span>{{i+1}}.
-    <button type="button" class="btn btn-primary mx-2" style="width: 200px" (click)="selectPlace(device.id)">{{device.name}}</button></span>
+    <button type="button" [ngClass]="connectingDevice?buttonStyleWarning:buttonStylePrimary" style="width: 200px" (click)="selectDevice(device.id)">{{device.name}}</button></span>
 
           </li>
         </ul>

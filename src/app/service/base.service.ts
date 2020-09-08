@@ -76,7 +76,9 @@ export class BaseService {
     this.places.forEach(value => value.beaconsCount = 0);
     this.beacons.forEach(value => {
       if (value.placeId !== null) {
-        this.placeMap.get(value.placeId).beaconsCount++;
+        if (this.placeMap.get(value.placeId) !== undefined) {
+          this.placeMap.get(value.placeId).beaconsCount++;
+        }
       }
     });
   }

@@ -17,6 +17,7 @@ import {BeaconPipe} from './service/beacon-pipe';
 import {PlacePipe} from './service/place-pipe';
 import {DevicePipe} from './service/device-pipe';
 import { JournalComponent } from './journal/journal.component';
+import { OperComponent } from './oper/oper.component';
 
 
 const appRoutes: Routes = [
@@ -39,7 +40,8 @@ const appRoutes: Routes = [
     BeaconPipe,
     PlacePipe,
     DevicePipe,
-    JournalComponent
+    JournalComponent,
+    OperComponent
   ],
   imports: [
     BrowserModule,
